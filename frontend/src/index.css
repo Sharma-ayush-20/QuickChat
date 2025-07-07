@@ -1,2 +1,14 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.custom-scrollbar {
+  scrollbar-width: none; 
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  padding-right: 8px; /* Prevent layout shift */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; 
+}

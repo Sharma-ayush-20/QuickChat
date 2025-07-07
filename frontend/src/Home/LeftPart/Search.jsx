@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 
 function Search() {
     return (
-        <div>
+        <div className='h-[10vh]'>
 
             {/* --------------search bar-------------- */}
             <div className='flex justify-center items-center py-5'>
