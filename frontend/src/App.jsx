@@ -1,11 +1,12 @@
 import React from 'react'
+import Left from './Home/LeftPart/Left'
+import Right from './Home/RightPart/Right'
 
 function App() {
   return (
-    <div>
-      <h1 class="text-3xl font-bold underline bg-green-300">
-        Hello world!
-      </h1>
+    <div className='flex flex-col sm:flex-row h-screen'>
+      <Left/>
+      <Right/>
     </div>
   )
 }
