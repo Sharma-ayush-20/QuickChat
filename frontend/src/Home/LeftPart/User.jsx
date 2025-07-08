@@ -3,7 +3,7 @@ import React from 'react'
 function User() {
     return (
         <div>
-            <div className='flex space-x-4 px-4 py-3 items-center hover:bg-slate-700 duration-200 cursor-pointer'>
+            <div className='flex space-x-4 px-8 py-3 items-center hover:bg-slate-700 duration-200 cursor-pointer'>
                 {/* ----------------User Photo----------------------- */}
                 <div className="avatar avatar-online">
                     <div className="w-12 rounded-full">
@@ -12,7 +12,7 @@ function User() {
                 </div>
                 {/* ------------------User name and email------------------- */}
                 <div>
-                    <h1>Spidy</h1>
+                    <h1 className='font-bold'>Spidy</h1>
                     <span>Spidy@dev.com</span>
                 </div>
             </div>
