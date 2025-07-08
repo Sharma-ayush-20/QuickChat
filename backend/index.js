@@ -1,9 +1,14 @@
 import express from 'express';
 import 'dotenv/config.js';
 import mongoose from 'mongoose';
+import userRouter from './routes/user-route.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(express.json())
+
+app.use("/api/user", userRouter)
 
 // Default route
 app.get("/", (req, res) => {
