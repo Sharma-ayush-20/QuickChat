@@ -1,0 +1,25 @@
+import express from 'express';
+import 'dotenv/config.js';
+import mongoose from 'mongoose';
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Default route
+app.get("/", (req, res) => {
+    res.send("<h1>Hello World</h1>");
+});
+
+// Connect to MongoDB
+mongoose.connect(`${process.env.MONGODB_URI}/chatapp`)
+    .then(() => {
+        console.log("MongoDB connected successfully");
+        
+        // Start the server only after DB connection
+        app.listen(port, () => {
+            console.log(`App is Listening at http://localhost:${port}`);
+        });
+    })
+    .catch((error) => {
+        console.log("Error connecting to MongoDB:", error);
+    });
