@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
+import axios from 'axios'
 
 function Signup() {
     const {
@@ -9,7 +10,28 @@ function Signup() {
         formState: { errors },
     } = useForm()
     
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = async (data) => {
+        try {
+            let userInfo = {
+                fullname: data.fullname,
+                email: data.email,
+                password: data.password,
+                confirmPassword: data.confirmPassword
+            }
+            const response = await axios.post(`http://localhost:3000/api/user/signup`, userInfo, {
+                withCredentials: true // this will accept cookie 
+            })
+            if(response.data.success){
+                alert(response.data.message)
+                console.log(response.data.message)
+            }
+            else{
+                console.log("Signup Failed")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     
     return (
         <>
