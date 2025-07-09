@@ -1,6 +1,6 @@
+import createTokenAndSaveCookie from "../jwt/generateToken.js";
 import User from "../models/user-model.js";
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 
 const signUp = async (req, res) => {
     try {
@@ -39,6 +39,9 @@ const signUp = async (req, res) => {
         })
 
         await newUser.save();
+
+        //generateToken for user
+        createTokenAndSaveCookie(newUser._id, res);
 
         return res.status(200).json({
             success: true,
