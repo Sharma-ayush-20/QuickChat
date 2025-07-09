@@ -1,18 +1,28 @@
 import React from 'react'
+import { useForm } from "react-hook-form"
 
 function Signup() {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm()
+    
+    const onSubmit = (data) => console.log(data)
+    
     return (
         <>
             <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
                 <div className="card w-full max-w-md bg-base-100 shadow-xl">
                     <div className="card-body">
-                        <form action="">
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="text-center mb-6">
                                 <h1 className="text-3xl font-bold text-primary">Quick Chat</h1>
                                 <h2 className="text-xl font-semibold text-base-content mt-2">Create Account</h2>
                                 <p className="text-base-content/70 text-sm mt-1">Join our community today</p>
                             </div>
-
+                            
                             {/* Fullname */}
                             <div className="form-control w-full mb-4">
                                 <label className="label">
@@ -33,22 +43,34 @@ function Signup() {
                                     </svg>
                                     <input
                                         type="text"
-                                        required
                                         placeholder="Enter your full name"
-                                        pattern="[A-Za-z][A-Za-z0-9\-]*"
-                                        minLength="3"
-                                        maxLength="30"
-                                        title="Only letters, numbers or dash"
                                         className="grow"
+                                        {...register("fullname", {
+                                            required: "Full name is required",
+                                            minLength: {
+                                                value: 3,
+                                                message: "Full name must be at least 3 characters"
+                                            },
+                                            maxLength: {
+                                                value: 30,
+                                                message: "Full name must be less than 30 characters"
+                                            },
+                                            pattern: {
+                                                value: /^[A-Za-z][A-Za-z0-9\-]*$/,
+                                                message: "Only letters, numbers or dash allowed"
+                                            }
+                                        })}
                                     />
                                 </label>
-                                <label className="label">
-                                    <span className="label-text-alt text-base-content/60 validator-hint">
-                                        Must be 3 to 30 characters containing only letters, numbers or dash
-                                    </span>
-                                </label>
+                                {errors.fullname && (
+                                    <label className="label">
+                                        <span className="label-text-alt text-error text-xs leading-relaxed break-words">
+                                            {errors.fullname.message}
+                                        </span>
+                                    </label>
+                                )}
                             </div>
-
+                            
                             {/* Email */}
                             <div className="form-control w-full mb-4">
                                 <label className="label">
@@ -70,19 +92,27 @@ function Signup() {
                                     <input
                                         type="email"
                                         placeholder="mail@example.com"
-                                        required
                                         className="grow"
+                                        {...register("email", {
+                                            required: "Email is required",
+                                            pattern: {
+                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                message: "Enter a valid email address"
+                                            }
+                                        })}
                                     />
                                 </label>
-                                <label className="label">
-                                    <span className="label-text-alt text-error validator-hint hidden">
-                                        Enter valid email address
-                                    </span>
-                                </label>
+                                {errors.email && (
+                                    <label className="label">
+                                        <span className="label-text-alt text-error text-xs leading-relaxed break-words">
+                                            {errors.email.message}
+                                        </span>
+                                    </label>
+                                )}
                             </div>
-
+                            
                             {/* Password */}
-                            <div className="form-control w-full mb-6">
+                            <div className="form-control w-full mb-4">
                                 <label className="label">
                                     <span className="label-text font-medium">Password</span>
                                 </label>
@@ -103,21 +133,72 @@ function Signup() {
                                     </svg>
                                     <input
                                         type="password"
-                                        required
                                         placeholder="Create a strong password"
-                                        minLength="8"
-                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                        title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
                                         className="grow"
+                                        {...register("password", {
+                                            required: "Password is required",
+                                            minLength: {
+                                                value: 8,
+                                                message: "Password must be at least 8 characters"
+                                            },
+                                            pattern: {
+                                                value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+                                                message: "Must contain number, lowercase & uppercase letter"
+                                            }
+                                        })}
                                     />
                                 </label>
-                                <label className="label">
-                                    <span className="label-text-alt text-base-content/60 validator-hint">
-                                        Must be 8+ characters with at least one number, lowercase & uppercase letter
-                                    </span>
-                                </label>
+                                {errors.password && (
+                                    <label className="label">
+                                        <span className="label-text-alt text-error text-xs leading-relaxed break-words w-full">
+                                            {errors.password.message}
+                                        </span>
+                                    </label>
+                                )}
                             </div>
-
+                            
+                            {/* Confirm Password */}
+                            <div className="form-control w-full mb-6">
+                                <label className="label">
+                                    <span className="label-text font-medium">Confirm Password</span>
+                                </label>
+                                <label className="input input-bordered flex items-center gap-2 validator focus-within:input-primary">
+                                    <svg className="h-4 w-4 opacity-70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <g
+                                            strokeLinejoin="round"
+                                            strokeLinecap="round"
+                                            strokeWidth="2"
+                                            fill="none"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+                                            ></path>
+                                            <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                    <input
+                                        type="password"
+                                        placeholder="Confirm your password"
+                                        className="grow"
+                                        {...register("confirmPassword", {
+                                            required: "Please confirm your password",
+                                            validate: (value) => {
+                                                const password = watch("password");
+                                                return password === value || "Passwords do not match";
+                                            }
+                                        })}
+                                    />
+                                </label>
+                                {errors.confirmPassword && (
+                                    <label className="label">
+                                        <span className="label-text-alt text-error text-xs leading-relaxed break-words">
+                                            {errors.confirmPassword.message}
+                                        </span>
+                                    </label>
+                                )}
+                            </div>
+                            
                             {/* Submit Button */}
                             <div className="form-control mt-6">
                                 <button type="submit" className="btn btn-primary btn-block">
@@ -130,7 +211,7 @@ function Signup() {
                                     Create Account
                                 </button>
                             </div>
-
+                            
                             {/* Login Link */}
                             <div className="divider text-base-content/50">OR</div>
                             <div className="text-center">
@@ -141,12 +222,10 @@ function Signup() {
                                     </a>
                                 </p>
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
