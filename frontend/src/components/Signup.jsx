@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import axios from 'axios'
 import { useAuth } from '../context/AppContext'
+import { useNavigate } from 'react-router-dom'
 
 function Signup() {
     const {
@@ -12,6 +13,7 @@ function Signup() {
     } = useForm()
 
     const { authUser, setAuthUser } = useAuth()
+    const navigate = useNavigate()
 
     const onSubmit = async (data) => {
         try {
@@ -249,7 +251,7 @@ function Signup() {
                             <div className="text-center">
                                 <p className="text-sm text-base-content/70">
                                     Already have an account?{' '}
-                                    <a href="#" className="link link-primary font-medium">
+                                    <a onClick={() => navigate('/login')} className="link link-primary font-medium">
                                         Login
                                     </a>
                                 </p>
