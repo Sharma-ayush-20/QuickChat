@@ -9,7 +9,7 @@ function Signup() {
         watch,
         formState: { errors },
     } = useForm()
-    
+
     const onSubmit = async (data) => {
         try {
             let userInfo = {
@@ -18,21 +18,27 @@ function Signup() {
                 password: data.password,
                 confirmPassword: data.confirmPassword
             }
-            const response = await axios.post(`http://localhost:3000/api/user/signup`, userInfo, {
-                withCredentials: true // this will accept cookie 
-            })
-            if(response.data.success){
-                alert(response.data.message)
-                console.log(response.data.message)
+
+            const response = await axios.post(
+                "http://localhost:3000/api/user/signup",
+                userInfo,
+                { withCredentials: true }
+            );
+
+            if (response.data.success) {
+                alert(response.data.message);
+                console.log(response.data.message);
+                localStorage.setItem("ChatApp", JSON.stringify(response.data));
+            } else {
+                alert(response.data.message);
             }
-            else{
-                console.log("Signup Failed")
-            }
+
         } catch (error) {
-            console.log(error)
+            alert("Error: " + (error.response?.data?.message || error.message));
         }
     }
-    
+
+
     return (
         <>
             <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
@@ -44,7 +50,7 @@ function Signup() {
                                 <h2 className="text-xl font-semibold text-base-content mt-2">Create Account</h2>
                                 <p className="text-base-content/70 text-sm mt-1">Join our community today</p>
                             </div>
-                            
+
                             {/* Fullname */}
                             <div className="form-control w-full mb-4">
                                 <label className="label">
@@ -92,7 +98,7 @@ function Signup() {
                                     </label>
                                 )}
                             </div>
-                            
+
                             {/* Email */}
                             <div className="form-control w-full mb-4">
                                 <label className="label">
@@ -132,7 +138,7 @@ function Signup() {
                                     </label>
                                 )}
                             </div>
-                            
+
                             {/* Password */}
                             <div className="form-control w-full mb-4">
                                 <label className="label">
@@ -178,7 +184,7 @@ function Signup() {
                                     </label>
                                 )}
                             </div>
-                            
+
                             {/* Confirm Password */}
                             <div className="form-control w-full mb-6">
                                 <label className="label">
@@ -220,7 +226,7 @@ function Signup() {
                                     </label>
                                 )}
                             </div>
-                            
+
                             {/* Submit Button */}
                             <div className="form-control mt-6">
                                 <button type="submit" className="btn btn-primary btn-block">
@@ -233,7 +239,7 @@ function Signup() {
                                     Create Account
                                 </button>
                             </div>
-                            
+
                             {/* Login Link */}
                             <div className="divider text-base-content/50">OR</div>
                             <div className="text-center">

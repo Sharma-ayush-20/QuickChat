@@ -45,7 +45,12 @@ const signUp = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "User Created SuccessFully"
+            message: "User Created SuccessFully",
+            user: {
+                _id: newUser._id,
+                fullname: newUser.fullname,
+                email: newUser.email,
+            }
         })
 
     } catch (error) {
@@ -83,7 +88,7 @@ const login = async (req, res) => {
 
         return res.status(200).json({
             success: true, message: "User Login SuccessFully",
-            existedUser: {
+            user: {
                 _id: existedUser._id,
                 fullname: existedUser.fullname,
                 email: existedUser.email,
