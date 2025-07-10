@@ -1,11 +1,49 @@
 import React from 'react'
+import { useForm } from "react-hook-form"
+import axios from 'axios'
 
 function Login() {
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = async (data) => {
+    try {
+      let userInfo = {
+        email: data.email,
+        password: data.password,
+      }
+
+      let response = await axios.post("http://localhost:3000/api/user/login",
+        userInfo,
+        {
+          withCredentials: true, //for accept cookie
+        }
+      )
+
+      if(response.data.success){
+        alert("User Login SuccessFully");
+        console.log("User Login SuccessFully")
+        localStorage.setItem("ChatApp", JSON.stringify(response.data))
+      }
+
+    } catch (error) {
+      if(error.response){
+        alert("Error: " + (error.response?.data?.message || error.message));
+      }
+
+    }
+  }
+
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
       <div className="card w-full max-w-md bg-base-100 shadow-xl">
         <div className="card-body">
-          <form action="">
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="text-center mb-6">
               <h1 className="text-3xl font-bold text-primary">Quick Chat</h1>
               <h2 className="text-xl font-semibold text-base-content mt-2">Welcome Back</h2>
@@ -30,18 +68,28 @@ function Login() {
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                   </g>
                 </svg>
-                <input 
-                  type="email" 
-                  placeholder="mail@example.com" 
-                  required 
+                <input
+                  type="email"
+                  placeholder="mail@example.com"
+                  required
                   className="grow"
+                  {...register("email", {
+                    required: "Email is Required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Enter a valid email address"
+                    }
+                  })}
                 />
               </label>
-              <label className="label">
-                <span className="label-text-alt text-error validator-hint hidden">
-                  Enter valid email address
-                </span>
-              </label>
+              {errors.email && (
+                <label className="label">
+                  <span className="label-text-alt text-error text-xs leading-relaxed break-words">
+                    {errors.email.message}
+                  </span>
+                </label>
+              )}
+
             </div>
 
             {/* Password */}
@@ -69,17 +117,35 @@ function Login() {
                   required
                   placeholder="Enter your password"
                   className="grow"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters"
+                    },
+                    pattern: {
+                      value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+                      message: "Must contain number, lowercase & uppercase letter"
+                    }
+                  })}
                 />
               </label>
+              {errors.password && (
+                <label className="label">
+                  <span className="label-text-alt text-error text-xs leading-relaxed break-words w-full">
+                    {errors.password.message}
+                  </span>
+                </label>
+              )}
             </div>
 
             {/* Submit Button */}
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary btn-block">
                 <svg className="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-                  <polyline points="10,17 15,12 10,7"/>
-                  <line x1="15" y1="12" x2="3" y2="12"/>
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                  <polyline points="10,17 15,12 10,7" />
+                  <line x1="15" y1="12" x2="3" y2="12" />
                 </svg>
                 Sign In
               </button>
