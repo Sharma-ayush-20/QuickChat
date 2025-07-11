@@ -123,9 +123,39 @@ const logOut = async (req, res) => {
     }
 }
 
+//get all user from database
+const allUsers = async (req, res) => {
+    try {
+        const currentUserId = req.user._id;
+
+        const allUsers = await User.find({
+            _id: { $ne: currentUserId } 
+        }).select("-password");
+
+        if (!allUsers || allUsers.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No User Found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            allUsers,
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
 export {
     signUp,
     login,
     logOut,
+    allUsers,
 }
 

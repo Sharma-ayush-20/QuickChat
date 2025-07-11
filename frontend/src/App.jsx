@@ -11,6 +11,7 @@ function App() {
 
   return (
     <Routes>
+
       {/* Home (protected route) */}
       <Route
         path="/"
@@ -37,6 +38,7 @@ function App() {
         path="/signup"
         element={authUser ? <Navigate to="/" /> : <Signup />}
       />
+
     </Routes>
   )
 }

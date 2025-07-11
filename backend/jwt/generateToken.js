@@ -7,6 +7,7 @@ const createTokenAndSaveCookie = (userId, res) => {
         secure: true,
         sameSite: "strict"
     })
+    // console.log("JWT token set:", token);
 }
 
 export default createTokenAndSaveCookie;
