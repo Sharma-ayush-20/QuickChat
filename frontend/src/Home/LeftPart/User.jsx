@@ -1,6 +1,8 @@
 import React from 'react'
+import useConversation from '../../zustand/useConversation.js'
 
 function User({user}) {
+
     return (
         <div>
             <div className='flex space-x-4 px-8 py-3 items-center hover:bg-slate-700 duration-200 cursor-pointer'>
