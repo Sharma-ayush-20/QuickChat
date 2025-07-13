@@ -4,6 +4,7 @@ import cors from 'cors'
 import mongoose from 'mongoose';
 import userRouter from './routes/user-route.js';
 import cookieParser from 'cookie-parser';
+import messageRouter from './routes/message-route.js'
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ app.use(cors({
 }))
 
 app.use("/api/user", userRouter)
+app.use("/api/message", messageRouter)
 
 // Default route
 app.get("/", (req, res) => {
