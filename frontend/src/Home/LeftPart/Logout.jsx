@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { BiLogOutCircle } from "react-icons/bi";
+import { BiLogOutCircle } from "react-icons/bi"
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
 function Logout() {
-
   const [loading, setLoading] = useState(false)
 
   const handleLogout = async () => {
     setLoading(true)
     try {
-
       const response = await axios.post(`http://localhost:3000/api/user/logout`)
 
       if (response.data.success) {
@@ -27,10 +25,12 @@ function Logout() {
   }
 
   return (
-    <div className='h-[10vh]'>
-      <div>
-        <BiLogOutCircle onClick={handleLogout} className='text-5xl hover:bg-slate-700 rounded-full p-2 duration-300 cursor-pointer ml-2 mt-2' />
-      </div>
+    <div className='h-[10vh] flex items-center px-4'>
+      <BiLogOutCircle
+        onClick={handleLogout}
+        className='text-5xl text-slate-300 cursor-pointer p-2 rounded-full transition-all duration-300 hover:bg-slate-800 hover:shadow-[0_0_12px_2px_rgba(59,130,246,0.4)] hover:text-blue-400'
+        title="Logout"
+      />
     </div>
   )
 }

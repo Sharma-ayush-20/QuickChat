@@ -10,12 +10,14 @@ function Message({ message }) {
 
   return (
     <div>
-         <div className='p-2'>
-                <div className={`chat ${chatName}`}>
-                    <div className={`chat-bubble chat-bubble-info text-white ${chatColor}`}>{message.message}</div>
-                </div>
-               
-            </div>
+      <div className='p-2'>
+        <div className={`chat ${chatName}`}>
+          <div className={`chat-bubble chat-bubble-info text-white ${chatColor} 
+            px-4 py-2 rounded-lg shadow-sm max-w-[75%] break-words`}>
+            {message.message}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

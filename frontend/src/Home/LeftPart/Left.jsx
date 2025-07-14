@@ -5,7 +5,7 @@ import Logout from './Logout'
 
 function Left() {
   return (
-    <div className='bg-black sm:w-[30%] text-gray-300'>
+    <div className='bg-black sm:w-[30%] text-gray-300 border-r border-slate-800 shadow-md'>
       <Search />
       <div className='overflow-y-auto custom-scrollbar' style={{ minHeight: "calc(84vh - 10vh)" }}>
         <Users />
