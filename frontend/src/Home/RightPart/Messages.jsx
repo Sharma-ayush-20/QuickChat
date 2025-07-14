@@ -6,7 +6,7 @@ import Loading from '../../components/Loading.jsx'
 function Messages() {
 
     const { loading, messages } = useGetMessage()
-    console.log(messages)
+    // console.log(messages)
 
     return (
         <div style={{ minHeight: "calc(92vh - 8vh)" }}>
