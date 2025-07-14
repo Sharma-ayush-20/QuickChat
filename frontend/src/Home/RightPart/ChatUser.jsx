@@ -4,7 +4,7 @@ import useConversation from '../../zustand/useConversation.js'
 function ChatUser() {
 
     const { selectedConversation } = useConversation()
-    console.log(selectedConversation)
+    // console.log(selectedConversation)
 
     return (
         <div>
@@ -17,7 +17,7 @@ function ChatUser() {
                 </div>
                 {/* ------------------User name and email------------------- */}
                 <div>
-                    <h1 className='font-bold'>{selectedConversation.fullname}</h1>
+                    <h1 className='font-bold'>{selectedConversation?.fullname}</h1>
                     <span className='text-sm'>Offline</span>
                 </div>
             </div>
