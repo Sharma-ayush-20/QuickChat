@@ -3,9 +3,13 @@ import useConversation from '../../zustand/useConversation.js'
 
 function User({user}) {
 
+    const {selectedConversation, setSelectedConversation} = useConversation();
+    const isSelected = selectedConversation?._id === user._id
+
     return (
         <div>
-            <div className='flex space-x-4 px-8 py-3 items-center hover:bg-slate-700 duration-200 cursor-pointer'>
+            <div className={`flex space-x-4 px-8 py-3 items-center hover:bg-slate-700 duration-200 cursor-pointer 
+                ${isSelected ? "bg-slate-700" : ""}`} onClick={() => setSelectedConversation(user)}>
                 {/* ----------------User Photo----------------------- */}
                 <div className="avatar avatar-online">
                     <div className="w-12 rounded-full">
