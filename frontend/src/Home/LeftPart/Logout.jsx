@@ -3,14 +3,16 @@ import { BiLogOutCircle } from "react-icons/bi"
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import toast from 'react-hot-toast';
+import { useAuth } from '../../context/AppContext';
 
 function Logout() {
   const [loading, setLoading] = useState(false)
+  const { backendUrl } = useAuth()
 
   const handleLogout = async () => {
     setLoading(true)
     try {
-      const response = await axios.post(`http://localhost:3000/api/user/logout`)
+      const response = await axios.post(`${backendUrl}/api/user/logout`)
 
       if (response.data.success) {
         toast.success(response.data.message)

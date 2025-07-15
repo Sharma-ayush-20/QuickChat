@@ -10,8 +10,10 @@ export const AppContextProvider = (props) => {
     //parse the userdata and storing in state
     const [authUser, setAuthUser] = useState(initialUserState ? JSON.parse(initialUserState) : undefined)
 
+    const backendUrl = "http://localhost:3000"
+
     const value = {
-        authUser, setAuthUser
+        authUser, setAuthUser, backendUrl
     }
 
     return (

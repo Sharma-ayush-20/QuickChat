@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import useConversation from '../zustand/useConversation.js'
 import axios from 'axios'
+import { useAuth } from '../context/AppContext.jsx'
 
 function useSendMessage() {
 
     const [loading, setLoading] = useState(false);
     const { selectedConversation, messages, setMessages } = useConversation();
+    const { backendUrl } = useAuth()
 
     const sendMessages = async (message) => {
         try {
             setLoading(true)
-            const response = await axios.post(`http://localhost:3000/api/message/send/${selectedConversation._id}`,
+            const response = await axios.post(`${backendUrl}/api/message/send/${selectedConversation._id}`,
                 {message}, { withCredentials: true }
             )
 

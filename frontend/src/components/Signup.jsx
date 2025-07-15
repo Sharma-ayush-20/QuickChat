@@ -13,7 +13,7 @@ function Signup() {
         formState: { errors },
     } = useForm()
 
-    const { authUser, setAuthUser } = useAuth()
+    const { authUser, setAuthUser, backendUrl } = useAuth()
     const navigate = useNavigate()
 
     const onSubmit = async (data) => {
@@ -26,7 +26,7 @@ function Signup() {
             }
 
             const response = await axios.post(
-                "http://localhost:3000/api/user/signup",
+                `${backendUrl}/api/user/signup`,
                 userInfo,
                 { withCredentials: true }
             );

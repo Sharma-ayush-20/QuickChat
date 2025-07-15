@@ -14,7 +14,7 @@ function Login() {
     formState: { errors },
   } = useForm()
 
-  const { authUser, setAuthUser } = useAuth()
+  const { authUser, setAuthUser, backendUrl } = useAuth()
   const navigate = useNavigate()
 
   const onSubmit = async (data) => {
@@ -24,7 +24,7 @@ function Login() {
         password: data.password,
       }
 
-      let response = await axios.post("http://localhost:3000/api/user/login",
+      let response = await axios.post(`${backendUrl}/api/user/login`,
         userInfo,
         {
           withCredentials: true, //for accept cookie

@@ -3,10 +3,12 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import Cookies from "js-cookie"
 import axios from 'axios'
+import { useAuth } from '../context/AppContext.jsx'
 
 function useGetAllUsers() {
     const [allUsers, setAllUsers] = useState([])
     const [loading, setLoading] = useState(false)
+    const { backendUrl } = useAuth()
 
     useEffect(() => {
 
@@ -16,7 +18,7 @@ function useGetAllUsers() {
                 
                 const token = Cookies.get("jwt")
 
-                const response = await axios.get("http://localhost:3000/api/user/allusers", 
+                const response = await axios.get(`${backendUrl}/api/user/allusers`, 
                     {withCredentials: true,
                         headers: {
                             Authorization: `Bearer ${token}`

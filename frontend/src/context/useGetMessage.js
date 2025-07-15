@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import useConversation from '../zustand/useConversation.js';
 import axios from 'axios'
+import { useAuth } from '../context/AppContext.jsx'
 
 function useGetMessage() {
 
     const [loading, setLoading] = useState(false);
     const { messages, setMessages, selectedConversation } = useConversation();
+    const { backendUrl } = useAuth()
 
     useEffect(() => {
         const getMessages = async () => {
@@ -14,7 +16,7 @@ function useGetMessage() {
                 try {
 
                     const response = await axios.get(
-                        `http://localhost:3000/api/message/get/${selectedConversation._id}`,
+                        `${backendUrl}/api/message/get/${selectedConversation._id}`,
                         {
                             withCredentials: true 
                         }

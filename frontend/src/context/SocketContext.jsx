@@ -12,12 +12,12 @@ export const useSocketContext = () => {
 export const SocketContextProvider = (props) => {
 
     const [socket, setSocket] = useState(null);
-    const { authUser } = useAuth()
+    const { authUser, backendUrl } = useAuth()
     const [onlineUsers, setOnlineUsers] = useState([])
 
     useEffect(() => {
         if (authUser) {
-            const socket = io("http://localhost:3000",
+            const socket = io(`${backendUrl}`,
                 {
                     query: {
                         userId: authUser.user._id
