@@ -5,13 +5,10 @@ import Loading from '../../components/Loading.jsx'
 import useGetSocketMessage from '../../context/useGetSocketMessage.js'
 
 function Messages() {
-
     const { loading, messages } = useGetMessage()
-    // console.log(messages)
-
     useGetSocketMessage(); //listing incoming messages
-
     const lastMsgRef = useRef()
+
     useEffect(() => {
         setTimeout(() => {
             if (lastMsgRef.current) {
@@ -21,10 +18,8 @@ function Messages() {
     }, [messages])
 
     return (
-        <div style={{ minHeight: "calc(92vh - 8vh)" }}>
-
+        <div className="h-full flex flex-col">
             {/* --------------------Messages-------------------- */}
-
             {
                 loading ?
                     (
@@ -38,17 +33,14 @@ function Messages() {
                         ))
                     )
             }
-
             {/* message is not there  */}
             {
                 !loading && messages.length === 0 && (
-                    <div>
-                        <p className='text-center mt-[20%] font-semibold text-slate-400'>Say! Hi to start the conversation</p>
+                    <div className="flex-1 flex items-center justify-center">
+                        <p className='text-center font-semibold text-slate-400'>Say! Hi to start the conversation</p>
                     </div>
                 )
             }
-
-
         </div>
     )
 }
