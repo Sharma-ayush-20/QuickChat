@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 import useGetAllUsers from '../../context/useGetAllUsers';
 import useConversation from '../../zustand/useConversation.js'
+import toast from 'react-hot-toast';
 
 function Search() {
 
@@ -23,7 +24,7 @@ function Search() {
             setSearch("")
         }
         else{
-            alert("User not Found");
+            toast.error("User not Found");
         }
     }
 

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import axios from 'axios'
 import { useAuth } from '../context/AppContext'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast';
 
 function Signup() {
     const {
@@ -31,12 +32,12 @@ function Signup() {
             );
 
             if (response.data.success) {
-                alert(response.data.message);
+                toast.success(response.data.message);
                 console.log(response.data.message);
                 localStorage.setItem("ChatApp", JSON.stringify(response.data));
                 setAuthUser(response.data)
             } else {
-                alert(response.data.message);
+                toast.error(response.data.message);
             }
 
         } catch (error) {
