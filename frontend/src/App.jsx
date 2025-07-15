@@ -5,11 +5,13 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import { useAuth } from './context/AppContext'
 import { Routes, Route, Navigate } from 'react-router-dom'
+// import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   const { authUser } = useAuth()
 
   return (
+    <>
     <Routes>
 
       {/* Home (protected route) */}
@@ -40,6 +42,9 @@ function App() {
       />
 
     </Routes>
+
+    {/* <Toaster /> */}
+    </>
   )
 }
 
