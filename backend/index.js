@@ -5,8 +5,9 @@ import mongoose from 'mongoose';
 import userRouter from './routes/user-route.js';
 import cookieParser from 'cookie-parser';
 import messageRouter from './routes/message-route.js'
+import { app, server } from './SocketIO/server.js';
 
-const app = express();
+// const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json())
@@ -30,7 +31,7 @@ mongoose.connect(`${process.env.MONGODB_URI}/chatapp`)
         console.log("MongoDB connected successfully");
         
         // Start the server only after DB connection
-        app.listen(port, () => {
+        server.listen(port, () => {
             console.log(`App is Listening at http://localhost:${port}`);
         });
     })
